@@ -63,17 +63,51 @@ export const HomePage: React.FC = () => {
         canonicalPath="/"
       />
 
+      {/* Hardware-accelerated SVG Unsharp Mask Filter for crisp low-light bar photography */}
+      <svg className="sr-only" aria-hidden="true">
+        <defs>
+          <filter id="crisp-bar-photo" colorInterpolationFilters="sRGB">
+            <feConvolveMatrix
+              order="3 3"
+              preserveAlpha="true"
+              kernelMatrix="0 -0.32 0 -0.32 2.28 -0.32 0 -0.32 0"
+            />
+            <feComponentTransfer>
+              <feFuncR type="linear" slope="1.05" intercept="-0.02" />
+              <feFuncG type="linear" slope="1.05" intercept="-0.02" />
+              <feFuncB type="linear" slope="1.05" intercept="-0.02" />
+            </feComponentTransfer>
+          </filter>
+        </defs>
+      </svg>
+
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[82vh] flex items-center bg-charcoal-950 overflow-hidden">
         <div className="absolute inset-0 z-0">
+          {/* Ambient dark backdrop on ultrawide screens */}
           <img
             src={SITE_CONFIG.images.heroBarInterior}
-            alt="Warm neighborhood bar interior representing Kirkwood Ice & Fuel in Kirkwood, MO"
-            className="w-full h-full object-cover object-center scale-105"
-            fetchPriority="high"
+            alt=""
+            aria-hidden="true"
+            className="hidden lg:block w-full h-full object-cover object-center blur-2xl opacity-30 scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950 via-charcoal-950/90 to-charcoal-950/65" />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-charcoal-950/60" />
+          {/* Crisp, un-stretched primary Hero photo with SVG Unsharp Mask */}
+          <div className="absolute inset-y-0 right-0 w-full lg:w-[66%] overflow-hidden">
+            <img
+              src={SITE_CONFIG.images.heroBarInterior}
+              alt="Inside Kirkwood Ice & Fuel bar in Downtown Kirkwood, MO"
+              className="w-full h-full object-cover object-[center_42%]"
+              style={{ filter: 'url(#crisp-bar-photo)' }}
+              fetchPriority="high"
+            />
+            {/* Seamless blend into left text column without washing out the bar photo */}
+            <div className="
+              absolute inset-0
+              bg-gradient-to-r from-charcoal-950 via-charcoal-950/75 lg:via-charcoal-950/25 to-charcoal-950/10
+            " />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950 via-charcoal-950/85 lg:via-charcoal-950/55 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-charcoal-950/40" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
@@ -200,15 +234,16 @@ export const HomePage: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-charcoal-900">
                 <img
                   src={SITE_CONFIG.images.welcomeBarAtmosphere}
-                  alt="Friends sharing drinks and conversation at a casual neighborhood pub (Placeholder)"
+                  alt="Kirkwood Ice & Fuel bar counter, draft beer taps, and neon signs"
                   loading="lazy"
-                  className="w-full h-[420px] object-cover"
+                  className="w-full h-[420px] object-cover object-center"
+                  style={{ filter: 'url(#crisp-bar-photo)' }}
                 />
                 <div className="bg-charcoal-900 text-cream-100 px-5 py-3.5 flex items-center justify-between text-xs">
                   <span className="font-semibold uppercase tracking-wider text-amber-400">
                     Downtown Kirkwood • St. Louis County
                   </span>
-                  <span className="text-cream-300">Placeholder Photography</span>
+                  <span className="text-cream-300">215 N. Kirkwood Rd</span>
                 </div>
               </div>
             </div>

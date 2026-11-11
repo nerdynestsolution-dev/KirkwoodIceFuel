@@ -63,15 +63,15 @@ export const SITE_CONFIG = {
   images: {
     // 1. Main Page Top Hero Background Picture (e.g. '/images/hero-bg.jpg')
     heroBarInterior:
-      'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80',
+      '/images/hero-bg.jpg',
 
     // 2. "Welcome to Kirkwood Ice & Fuel" Section Picture (e.g. '/images/welcome-bar.jpg')
     welcomeBarAtmosphere:
-      'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=80',
+      '/images/welcome-bar.jpg',
 
     // 3. "Enjoy the Patio" Section Picture (e.g. '/images/patio.jpg')
     patioFeature:
-      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80',
+      '/images/patio.jpg',
 
     burgerHighlight:
       'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80',
@@ -89,6 +89,33 @@ export const SITE_CONFIG = {
  * Each asset has a descriptive alt tag, category, and placeholder flag so real photography can drop right in.
  */
 export const GALLERY_IMAGES: GalleryImage[] = [
+  {
+    id: 'gal-real-bar',
+    title: 'The Bar at Kirkwood Ice & Fuel',
+    caption: 'Ice-cold draft taps, neon signs, and the classic Kirkwood Ice & Fuel Company mirror behind the bar.',
+    category: 'Bar & Atmosphere',
+    src: '/images/welcome-bar.jpg',
+    alt: 'Kirkwood Ice & Fuel bar interior with beer taps and Kirkwood Ice & Fuel Company mirror',
+    isPlaceholder: false,
+  },
+  {
+    id: 'gal-real-patio',
+    title: 'Sunny Outdoor Patio on N. Kirkwood Rd',
+    caption: 'Grab a colorful chair under the umbrellas on our Downtown Kirkwood outdoor patio.',
+    category: 'Outdoor Patio',
+    src: '/images/patio.jpg',
+    alt: 'Outdoor patio seating with umbrellas and flowers at Kirkwood Ice & Fuel in Kirkwood, MO',
+    isPlaceholder: false,
+  },
+  {
+    id: 'gal-real-interior',
+    title: 'Inside Kirkwood Ice & Fuel',
+    caption: 'Pull up a stool at the bar or grab a table with friends to catch the game.',
+    category: 'Bar & Atmosphere',
+    src: '/images/hero-bg.jpg',
+    alt: 'Dining room and bar seating inside Kirkwood Ice & Fuel',
+    isPlaceholder: false,
+  },
   {
     id: 'gal-1',
     title: 'Charbroiled Fuel Cheeseburger',
