@@ -55,13 +55,24 @@ export const SITE_CONFIG = {
     'Accepts Major Credit Cards',
     'Casual Neighborhood Atmosphere in Downtown Kirkwood',
   ],
+  /**
+   * HOMEPAGE PICTURES:
+   * Drop your own photos into the `public/images/` folder and replace the URLs below
+   * with `/images/your-photo-name.jpg`!
+   */
   images: {
+    // 1. Main Page Top Hero Background Picture (e.g. '/images/hero-bg.jpg')
     heroBarInterior:
       'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80',
+
+    // 2. "Welcome to Kirkwood Ice & Fuel" Section Picture (e.g. '/images/welcome-bar.jpg')
     welcomeBarAtmosphere:
       'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=80',
+
+    // 3. "Enjoy the Patio" Section Picture (e.g. '/images/patio.jpg')
     patioFeature:
       'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80',
+
     burgerHighlight:
       'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80',
     wingsHighlight:
