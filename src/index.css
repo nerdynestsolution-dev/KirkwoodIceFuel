@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #111110;
+    color: #F7F3EA;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Oswald', Impact, sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Custom subtle wood/pub grain texture overlay */
+.bg-pub-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #181715;
+}
+::-webkit-scrollbar-thumb {
+  background: #322F2B;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C44536;
+}
