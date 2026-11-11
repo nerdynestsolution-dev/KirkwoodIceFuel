@@ -2,13 +2,45 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { SpecialItem, EventItem } from '../types';
 import { PLACEHOLDER_SPECIALS } from '../data/siteConfig';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+/**
+ * Automatically normalizes any Supabase URL pasted into environment variables:
+ * - Strips accidental API paths like `/rest/v1` or `/auth/v1` (which cause "Invalid path specified in request URL")
+ * - Converts dashboard URLs like `https://supabase.com/dashboard/project/<ref>` into `https://<ref>.supabase.co`
+ * - Strips surrounding quotes or trailing slashes
+ */
+function normalizeSupabaseUrl(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  const cleaned = raw.trim().replace(/^['"]|['"]$/g, '');
+  if (!cleaned) return undefined;
+
+  // If the user pasted a Supabase Dashboard URL: https://supabase.com/dashboard/project/<project-ref>...
+  const dashboardMatch = cleaned.match(/supabase\.com\/dashboard\/project\/([a-z0-9-]+)/i);
+  if (dashboardMatch && dashboardMatch[1]) {
+    return `https://${dashboardMatch[1]}.supabase.co`;
+  }
+
+  // If the user pasted a valid http(s) URL (e.g., https://<ref>.supabase.co/rest/v1), extract just the origin
+  try {
+    const parsed = new URL(cleaned);
+    return parsed.origin;
+  } catch {
+    // If only a 20-char project reference ID was provided
+    if (/^[a-z0-9]{15,30}$/i.test(cleaned)) {
+      return `https://${cleaned}.supabase.co`;
+    }
+    return cleaned.replace(/\/+$/, '');
+  }
+}
+
+const supabaseUrl = normalizeSupabaseUrl(import.meta.env.VITE_SUPABASE_URL as string | undefined);
 
 // Supports Supabase's new Publishable Key (sb_publishable_...) as primary,
 // with backward compatibility if VITE_SUPABASE_ANON_KEY is provided.
-const supabasePublishableKey =
+const rawKey =
   (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined) ||
   (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined);
+
+const supabasePublishableKey = rawKey?.trim().replace(/^['"]|['"]$/g, '');
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl &&
@@ -20,7 +52,7 @@ export const isSupabaseConfigured = Boolean(
 );
 
 /**
- * Real Supabase Client initialized with the public Publishable Key (`sb_publishable_...`).
+ * Real Supabase Client initialized with the normalized Project URL and Publishable Key (`sb_publishable_...`).
  * Row Level Security (RLS) on the database enforces public read-only access
  * and restricts INSERT / UPDATE / DELETE strictly to authenticated administrators.
  */
